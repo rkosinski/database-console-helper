@@ -17,7 +17,7 @@ class DatabasePdoConnection implements DatabaseInterface
     {
         // Check for database configuration file
         if (!$this->getDatabaseConfigurationByConfigHostName($configData, $hostName)) {
-            throw new \InvalidArgumentException('Provided database host name not found in app/config.yml file');
+            throw new \InvalidArgumentException('Provided database host name not found.');
         }
 
         // Connect to the database host based on host config file
