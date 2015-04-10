@@ -92,12 +92,8 @@ class DatabaseCreationService
         // Create username - replace special characters and change length
         $user = substr(trim(preg_replace('/(\.|\-)/', '_', $this->removeDomainFromUrl($url))), 0, $maxLength);
 
-        // Add suffix if exists
-        if ($suffix != null) {
-            $user .= '_' . $suffix;
-        }
-
-        return $user;
+        // Return user name with appended suffix (if suffix exists)
+        return $this->appendSuffixToField($user, $suffix);
     }
 
     /**
@@ -108,17 +104,28 @@ class DatabaseCreationService
      */
     private function generateDatabaseName($url)
     {
-        // Get suffix from host config file
-        $suffix = $this->configuration['suffix'];
         // Replace incorrect characters
         $databaseName = trim(preg_replace('/(\.|\-)/', '_', $this->removeDomainFromUrl($url)));
 
+        // Return database name with appended suffix (if suffix exists)
+        return $this->appendSuffixToField($databaseName, $this->configuration['suffix']);
+    }
+
+    /**
+     * Append suffix to the field
+     *
+     * @param $field
+     * @param $suffix
+     * @return string
+     */
+    private function appendSuffixToField($field, $suffix)
+    {
         // Add suffix if exists
         if ($suffix != null) {
-            $databaseName .= '_' . $suffix;
+            $field .= '_' . $suffix;
         }
 
-        return $databaseName;
+        return $field;
     }
 
     /**

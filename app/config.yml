@@ -3,12 +3,10 @@ development:
     root: root
     password: defaultpassword
     suffix: dev
-
 production:
     host: production.test.host.name
     root: root
     password: password
-
 production_test:
     host: production.test.host.name
     root: root
