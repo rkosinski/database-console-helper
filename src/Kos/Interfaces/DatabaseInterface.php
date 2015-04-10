@@ -5,9 +5,7 @@ use Kos\Interfaces\ConfigDataInterface;
 
 interface DatabaseInterface
 {
-    public function __construct(ConfigDataInterface $configData, $hostName);
-
-    public function getDatabaseConfigurationByConfigHostName($configData, $hostName);
+    public function __construct(ConfigDataInterface $config, $hostName);
 
     public function getDatabaseConnection();
 
