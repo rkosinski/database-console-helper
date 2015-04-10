@@ -27,7 +27,6 @@ class MachineListCommand extends Command
     public function getMachinesListData()
     {
         // Init variables
-        $index = 1;
         $rowsData = array();
 
         // Get yml config data
@@ -36,8 +35,7 @@ class MachineListCommand extends Command
 
         // Push data into rows data array
         foreach ($data as $key => $value) {
-            array_push($rowsData, array($index, $key));
-            $index++;
+            array_push($rowsData, array($key, $value['host']));
         }
 
         return $rowsData;
@@ -54,7 +52,7 @@ class MachineListCommand extends Command
 
         // Init table and set headers
         $table = new Table($output);
-        $table->setHeaders(array('ID', 'Machine'));
+        $table->setHeaders(array('Machine name', 'Host address'));
 
         // Add rows and render table
         $table->addRows($this->getMachinesListData());
