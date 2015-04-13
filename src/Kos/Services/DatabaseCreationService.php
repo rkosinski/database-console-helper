@@ -6,6 +6,7 @@ use Kos\Interfaces\DatabaseInterface;
 class DatabaseCreationService
 {
     private $connection;
+    private $configuration;
 
     /**
      * @param DatabaseInterface $connection

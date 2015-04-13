@@ -30,17 +30,6 @@ class DatabaseCreationCommand extends Command
     }
 
     /**
-     * @param $inputArguments
-     */
-    public function setDatabaseServiceConnection($inputArguments)
-    {
-        $config = new ConfigYmlDataParser();
-        $connection = new DatabasePdoConnection($config, $inputArguments['host']);
-
-        $this->db = new DatabaseCreationService($connection);
-    }
-
-    /**
      * @param InputInterface $input
      * @param OutputInterface $output
      * @return int|null
@@ -64,5 +53,16 @@ class DatabaseCreationCommand extends Command
         $output->writeln("<info>Password: <bg=blue;options=bold>" . $createdDatabase['password'] . "</bg=blue;options=bold></info>");
 
         return 1;
+    }
+
+    /**
+     * @param $inputArguments
+     */
+    private function setDatabaseServiceConnection($inputArguments)
+    {
+        $config = new ConfigYmlDataParser();
+        $connection = new DatabasePdoConnection($config, $inputArguments['host']);
+
+        $this->db = new DatabaseCreationService($connection);
     }
 }

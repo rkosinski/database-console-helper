@@ -9,16 +9,10 @@ class ConfigYmlDataParser implements ConfigDataInterface
     const CONFIG_FILE_PATH = 'app/config.yml';
 
     /**
-     * Get configuration file
-     * From the YML config
-     *
      * @return array
      */
-    public function getConfigurationDataByHostName($hostName)
+    public function getAllConfigurationData()
     {
-        // Init variables
-        $hostConfig = array();
-
         // Check if config file not exist
         if (!file_exists(self::CONFIG_FILE_PATH)) {
             // And throw invalid argument exception
@@ -26,10 +20,21 @@ class ConfigYmlDataParser implements ConfigDataInterface
         }
 
         // Parse yaml config file
-        $config = Yaml::parse(file_get_contents(self::CONFIG_FILE_PATH));
+        return Yaml::parse(file_get_contents(self::CONFIG_FILE_PATH));
+    }
+
+    /**
+     * @param string $hostName
+     * @return array
+     */
+    public function getSingleConfigurationDataByHostName($hostName = 'default')
+    {
+        $hostConfig = array();
+
+        $configData = $this->getAllConfigurationData();
 
         // Parse config file to array
-        foreach ($config as $key => $value) {
+        foreach ($configData as $key => $value) {
             // And get the host name configuration
             if ($key === $hostName) {
                 array_push($hostConfig, $value);

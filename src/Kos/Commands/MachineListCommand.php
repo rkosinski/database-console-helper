@@ -22,26 +22,6 @@ class MachineListCommand extends Command
     }
 
     /**
-     * @return array
-     */
-    public function getMachinesListData()
-    {
-        // Init variables
-        $rowsData = array();
-
-        // Get yml config data
-        $config = new ConfigYmlDataParser();
-        $data = $config->getConfigurationData();
-
-        // Push data into rows data array
-        foreach ($data as $key => $value) {
-            array_push($rowsData, array($key, $value['host']));
-        }
-
-        return $rowsData;
-    }
-
-    /**
      * @param InputInterface $input
      * @param OutputInterface $output
      * @return int|null
@@ -60,4 +40,25 @@ class MachineListCommand extends Command
 
         return 1;
     }
+
+    /**
+     * @return array
+     */
+    private function getMachinesListData()
+    {
+        // Init variables
+        $rowsData = array();
+
+        // Get yml config data
+        $config = new ConfigYmlDataParser();
+        $data = $config->getAllConfigurationData();
+
+        // Push data into rows data array
+        foreach ($data as $key => $value) {
+            array_push($rowsData, array($key, $value['host']));
+        }
+
+        return $rowsData;
+    }
+
 }

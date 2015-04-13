@@ -3,5 +3,16 @@ namespace Kos\Interfaces;
 
 interface ConfigDataInterface
 {
-    public function getConfigurationDataByHostName($hostName);
+
+    /**
+     * @return array
+     */
+    public function getAllConfigurationData();
+
+    /**
+     * @param $hostName
+     * @return array
+     */
+    public function getSingleConfigurationDataByHostName($hostName = 'default');
+
 }

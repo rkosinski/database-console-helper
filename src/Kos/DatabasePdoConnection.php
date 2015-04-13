@@ -13,9 +13,11 @@ class DatabasePdoConnection implements DatabaseInterface
      * @param ConfigDataInterface $config
      * @param $hostName
      */
-    public function __construct(ConfigDataInterface $config, $hostName)
+    public function __construct(ConfigDataInterface $config, $hostName = 'default')
     {
-        $this->config = $config->getConfigurationDataByHostName($hostName)[0];
+        // Get hostname config data
+        $this->config = $config->getSingleConfigurationDataByHostName($hostName);
+
         // Check for database configuration file
         if (!sizeof($this->config) > 0) {
             throw new \InvalidArgumentException('Provided database host name not found.');
@@ -44,7 +46,7 @@ class DatabasePdoConnection implements DatabaseInterface
      */
     public function getDatabaseConfiguration()
     {
-        return $this->config;
+        return $this->config[0];
     }
 
 }

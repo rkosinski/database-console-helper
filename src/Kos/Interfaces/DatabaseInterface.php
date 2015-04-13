@@ -1,13 +1,23 @@
 <?php
 namespace Kos\Interfaces;
 
-use Kos\Interfaces\ConfigDataInterface;
-
 interface DatabaseInterface
 {
-    public function __construct(ConfigDataInterface $config, $hostName);
 
+    /**
+     * @param ConfigDataInterface $config
+     * @param string $hostName
+     */
+    public function __construct(ConfigDataInterface $config, $hostName = 'default');
+
+    /**
+     * @return \PDO
+     */
     public function getDatabaseConnection();
 
+    /**
+     * @return array
+     */
     public function getDatabaseConfiguration();
+
 }
