@@ -31,9 +31,10 @@ class ConfigYmlDataParser implements ConfigDataInterface
     {
         $hostConfig = array();
 
+        // Get all configuration data
         $configData = $this->getAllConfigurationData();
 
-        // Parse config file to array
+        // Parse config data to array
         foreach ($configData as $key => $value) {
             // And get the host name configuration
             if ($key === $hostName) {
