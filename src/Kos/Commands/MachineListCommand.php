@@ -10,6 +10,25 @@ use Symfony\Component\Console\Helper\Table;
 
 class MachineListCommand extends Command
 {
+    /**
+     * @return array
+     */
+    public function getMachinesListData()
+    {
+        // Init variables
+        $rowsData = array();
+
+        // Get yml config data
+        $config = new ConfigYmlDataParser();
+        $data = $config->getAllConfigurationData();
+
+        // Push data into rows data array
+        foreach ($data as $key => $value) {
+            array_push($rowsData, array($key, $value['host']));
+        }
+
+        return $rowsData;
+    }
 
     /**
      * Configure console command
@@ -39,26 +58,6 @@ class MachineListCommand extends Command
         $table->render();
 
         return 1;
-    }
-
-    /**
-     * @return array
-     */
-    private function getMachinesListData()
-    {
-        // Init variables
-        $rowsData = array();
-
-        // Get yml config data
-        $config = new ConfigYmlDataParser();
-        $data = $config->getAllConfigurationData();
-
-        // Push data into rows data array
-        foreach ($data as $key => $value) {
-            array_push($rowsData, array($key, $value['host']));
-        }
-
-        return $rowsData;
     }
 
 }

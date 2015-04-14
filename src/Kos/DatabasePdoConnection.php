@@ -16,7 +16,7 @@ class DatabasePdoConnection implements DatabaseInterface
     public function __construct(ConfigDataInterface $config, $hostName = 'default')
     {
         // Get hostname config data
-        $this->config = $config->getSingleConfigurationDataByHostName($hostName);
+        $this->config = $config->getSingleConfigurationDataByHostName($hostName)[0];
 
         // Check for database configuration file
         if (!sizeof($this->config) > 0) {
@@ -46,7 +46,7 @@ class DatabasePdoConnection implements DatabaseInterface
      */
     public function getDatabaseConfiguration()
     {
-        return $this->config[0];
+        return $this->config;
     }
 
 }

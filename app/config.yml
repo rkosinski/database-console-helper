@@ -1,4 +1,4 @@
-development:
+default:
     host: localhost
     root: root
     password: defaultpassword
