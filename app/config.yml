@@ -1,7 +1,7 @@
-default:
+development:
     host: localhost
     root: root
-    password: defaultpassword
+    password: password
     suffix: dev
 production:
     host: production.test.host.name

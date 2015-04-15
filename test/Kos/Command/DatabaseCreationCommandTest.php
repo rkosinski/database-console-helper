@@ -24,10 +24,23 @@ class DatabaseCreationCommandTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @expectedException \RuntimeException
+     * @expectedExceptionMessage Not enough arguments.
+     */
+    public function testNotEnoughArgumentsException()
+    {
+        $this->commandTester->execute(
+            array(
+                'command' => $this->command->getName(),
+            )
+        );
+    }
+
+    /**
      * @expectedException \PDOException
      * @expectedExceptionMessage Database error. Incorrect credentials.
      */
-    public function testingIncorrectHostingCredentials()
+    public function testIncorrectHostingCredentials()
     {
         $this->commandTester->execute(
             array(
@@ -42,7 +55,7 @@ class DatabaseCreationCommandTest extends \PHPUnit_Framework_TestCase
      * @expectedException \InvalidArgumentException
      * @expectedExceptionMessage Provided url name is not correct
      */
-    public function testingIncorrectUrlCredentials()
+    public function testIncorrectUrlCredentials()
     {
         $this->commandTester->execute(
             array(

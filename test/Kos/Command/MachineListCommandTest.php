@@ -26,7 +26,7 @@ class MachineListCommandTest extends \PHPUnit_Framework_TestCase
     /**
      * Test execute proper command
      */
-    public function testExecute()
+    public function testExecuteCommand()
     {
         $this->commandTester->execute(
             array(
