@@ -34,6 +34,12 @@ class DatabaseCreationCommand extends Command
     {
         $this
             ->setName('database:create')
+            ->addArgument('host',
+                InputArgument::REQUIRED,
+                'Required: Provide database host machine name from configuration file')
+            ->addArgument('url',
+                InputArgument::REQUIRED,
+                'Required: Provide url name')
             ->setDescription('Create new database');
     }
 
@@ -44,29 +50,9 @@ class DatabaseCreationCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $machineAnswersData = array();
-
-        $machinesListCommand = new MachineListCommand();
-
-        foreach ($machinesListCommand->getMachinesListData() as $machine) {
-            array_push($machineAnswersData, $machine[0]);
-        }
-
-        $helper = $this->getHelper('question');
-        $hostMachineQuestion = new ChoiceQuestion(
-            "\n<info>Choose database host machine name (skip for default):</info>\n",
-            $machineAnswersData,
-            0
-        );
-        $hostMachineChoice = $helper->ask($input, $output, $hostMachineQuestion);
-
-        $urlQuestion = new Question("\n<info>Provide URL address for the database name and user name:</info>\n");
-        $urlAnswer = $helper->ask($input, $output, $urlQuestion);
-
-        // Get arguments from input
         $inputArguments = array(
-            'host' => $hostMachineChoice,
-            'url' => $urlAnswer
+            'host' => $input->getArgument('host'),
+            'url' => $input->getArgument('url'),
         );
 
         $this->setDatabaseServiceConnection($inputArguments);

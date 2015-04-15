@@ -8,12 +8,13 @@ use Symfony\Component\Console\Tester\CommandTester;
 
 class DatabaseCreationCommandTest extends \PHPUnit_Framework_TestCase
 {
-    // TODO Tests, tests, tests
-
     protected $command;
     protected $commandTester;
 
-    protected function setUp()
+    /**
+     * SetUp on test init
+     */
+    public function setUp()
     {
         $application = new Application();
         $application->add(new DatabaseCreationCommand());
@@ -22,8 +23,34 @@ class DatabaseCreationCommandTest extends \PHPUnit_Framework_TestCase
         $this->commandTester = new CommandTester($this->command);
     }
 
-    public function testExecute()
+    /**
+     * @expectedException \PDOException
+     * @expectedExceptionMessage Database error. Incorrect credentials.
+     */
+    public function testingIncorrectHostingCredentials()
     {
-        $this->assertTrue(true);
+        $this->commandTester->execute(
+            array(
+                'command' => $this->command->getName(),
+                'host' => 'production',
+                'url' => 'rkosinski.dev.pl'
+            )
+        );
     }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage Provided url name is not correct
+     */
+    public function testingIncorrectUrlCredentials()
+    {
+        $this->commandTester->execute(
+            array(
+                'command' => $this->command->getName(),
+                'host' => 'development',
+                'url' => 'wrong@123&*!'
+            )
+        );
+    }
+
 }
